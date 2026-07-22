@@ -23,8 +23,6 @@ endif
 
 BUILD_META=-build$(shell date +%Y%m%d)
 ORG ?= rancher
-PKG ?= "github.com/kubernetes-sigs/node-feature-discovery"
-SRC ?= "github.com/kubernetes-sigs/node-feature-discovery"
 TAG ?= ${GITHUB_ACTION_TAG}
 
 REPO ?= rancher
@@ -44,8 +42,6 @@ image-build:
 		--pull \
 		--platform=$(ARCH) \
 		--build-arg ARCH=$(ARCH) \
-		--build-arg PKG=$(PKG) \
-		--build-arg SRC=$(SRC) \
 		--build-arg TAG=$(TAG:$(BUILD_META)=) \
 		--tag $(IMAGE) \
 		--tag $(IMAGE)-$(ARCH) \
@@ -60,8 +56,6 @@ push-image:
 		--attest type=provenance,mode=max \
 		--platform=$(TARGET_PLATFORMS) \
 		--build-arg ARCH=$(ARCH) \
-		--build-arg PKG=$(PKG) \
-		--build-arg SRC=$(SRC) \
 		--build-arg TAG=$(TAG:$(BUILD_META)=) \
 		--tag $(IMAGE) \
 		--tag $(IMAGE)-$(ARCH) \
@@ -81,7 +75,5 @@ log:
 	@echo "ARCH=$(ARCH)"
 	@echo "TAG=$(TAG:$(BUILD_META)=)"
 	@echo "ORG=$(ORG)"
-	@echo "PKG=$(PKG)"
-	@echo "SRC=$(SRC)"
 	@echo "BUILD_META=$(BUILD_META)"
 	@echo "UNAME_M=$(UNAME_M)"

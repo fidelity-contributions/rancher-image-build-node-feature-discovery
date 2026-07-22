@@ -1,5 +1,5 @@
 ARG GO_IMAGE=rancher/hardened-build-base:v1.24.13b1
-ARG BASE_IMAGE_MINIMAL=registry.suse.com/bci/bci-micro:latest
+ARG BCI_IMAGE=registry.suse.com/bci/bci-nano:16.0
 
 ######
 FROM ${GO_IMAGE} AS builder
@@ -36,7 +36,7 @@ RUN go-assert-boring.sh bin/*
 
 ######
 # Create minimal variant of the production image
-FROM ${BASE_IMAGE_MINIMAL} AS minimal
+FROM ${BCI_IMAGE} AS minimal
 # Run as unprivileged user
 USER 65534:65534
 # Use more verbose logging of gRPC
